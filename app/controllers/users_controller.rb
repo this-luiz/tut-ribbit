@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
    
-    if @user.save  # redireciona para a url que exibe o user
+    if @user.save
       redirect_to @user, notice: "Thank you for signing up for Ribbit!"
-    else           # ou redirecina para /users/new e exibe os erros. O formulario eh populado com os valores anteriores.
+    else         
       render 'new'
     end
   end
@@ -17,5 +17,5 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
-  
+
 end
