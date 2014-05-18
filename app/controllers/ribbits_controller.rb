@@ -11,4 +11,9 @@ class RibbitsController < ApplicationController
       redirect_to current_user
     end
   end
+
+  def index
+    @ribbits = Ribbit.all include: :user  # busca todos os ribbits e os seus usuarios
+    @ribbit = Ribbit.new    # cria um ribbit novo em branco
+  end
 end
