@@ -15,10 +15,24 @@
         <img class="avatar" src="<%= @user.avatar_url %>">
         <span class="name"><%= @user.name %></span> @<%= @user.username %>
         <p>
-        <%= @user.ribbits.size %> Ribbits
-        <span class="spacing">XX Followers</span>
-        <span class="spacing">XX Following</span>
+        <%= @user.ribbits.size %> Ribbits        
+        <span class="spacing"><span class="spacing"><%= @user.follower_relationships.count %> Followers</span></span>
+        <span class="spacing"><span class="spacing"><%= @user.followed_relationships.count %> Following</span></span>
         </p>
+
+        <% if current_user and @user != current_user %>
+            <% if current_user.following? @user %>
+                <%= form_tag relationship_path, method: :delete do %>
+                    <%= submit_tag "Unfollow" %>
+                <% end %>
+            <% else %>
+                <%= form_for @relationship do %>
+                    <%= hidden_field_tag :followed_id, @user.id %>
+                    <%= submit_tag "Follow" %>
+                <% end %>
+            <% end %>
+        <% end %>
+        
     </div>
 </div>
 <div class="panel left">
